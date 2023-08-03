@@ -18,7 +18,10 @@ public class DataLoadeer implements ApplicationRunner{
 	public void run(ApplicationArguments args) throws Exception {
 
 		Customer c = new Customer("Esempio", "Prova", "posta@email.com");
+		Customer c2 = new Customer("Test", "Check", "xxx@email.com");
+
 		customerRepository.save(c);
+		customerRepository.save(c2);
 	}
 	
 	

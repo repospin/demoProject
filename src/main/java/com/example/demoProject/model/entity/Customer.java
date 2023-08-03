@@ -6,65 +6,48 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Table(name = "Customer")
+@Getter
+@Setter
 public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
+    @NotEmpty(message = "Il campo non può essere vuoto")
+    @Pattern(regexp = "^[^0-9]*$", message = "Il campo non può contenere caratteri numerici")
     @Column()
     private String nome;
     
+    @NotEmpty(message = "Il campo non può essere vuoto")
+    @Pattern(regexp = "^[^0-9]*$", message = "Il campo non può contenere caratteri numerici")
     @Column()
     private String cognome;
 
-    @Column()
+    @Email
+    @Column(unique = true)
     private String email;
+	
+	public Customer() {
 
+	}
+	
 	public Customer( String nome, String cognome, String email) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
 	}
-	
-	public Customer() {
 
-	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getNome() {
-		return nome;
-	}
-
-	public void setNome(String nome) {
-		this.nome = nome;
-	}
-
-	public String getCognome() {
-		return cognome;
-	}
-
-	public void setCognome(String cognome) {
-		this.cognome = cognome;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
     
     
 }
