@@ -32,6 +32,7 @@ public class CustomerRestController {
     
     @PostMapping("/customer/save")
     public ResponseEntity<CustomerDTOres> saveCustomer(@RequestBody @Valid CustomerDTOreq customerDTOreq) {
+    	customerService.checkIsPresentEmail(customerDTOreq.getEmail());
     	return new ResponseEntity<>(customerService.saveCustomer(customerDTOreq), HttpStatus.CREATED);
     }
 

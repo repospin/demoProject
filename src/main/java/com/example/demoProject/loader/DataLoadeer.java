@@ -1,6 +1,5 @@
 package com.example.demoProject.loader;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -8,11 +7,14 @@ import org.springframework.stereotype.Component;
 import com.example.demoProject.model.entity.Customer;
 import com.example.demoProject.repository.CustomerRepository;
 
+import lombok.RequiredArgsConstructor;
+
 @Component
+@RequiredArgsConstructor
 public class DataLoadeer implements ApplicationRunner{
 
-	@Autowired
-	private CustomerRepository customerRepository;
+	
+	private final CustomerRepository customerRepository;
 
 	@Override
 	public void run(ApplicationArguments args) throws Exception {
