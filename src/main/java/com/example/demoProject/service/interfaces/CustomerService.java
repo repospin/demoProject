@@ -10,4 +10,5 @@ public interface CustomerService {
 	public CustomerDTOres saveCustomer(CustomerDTOreq customerDTOreq);
 	public List<CustomerDTOres> findAllCustomer();
 	public void checkIsPresentEmail(String email);
+	public CustomerDTOres findCustomerByEmail(String email);
 }

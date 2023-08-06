@@ -16,4 +16,9 @@ public class DemoProjectApplication {
     public WebClient.Builder webClientBuilder() {
         return WebClient.builder();
     }
+    
+    @Bean
+    public WebClient webClient(WebClient.Builder webClientBuilder) {
+        return webClientBuilder.baseUrl("https://dummyjson.com").build();
+    }
 }

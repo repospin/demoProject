@@ -8,8 +8,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 
 import com.example.demoProject.model.pojo.ErrorMessage;
+import com.example.demoProject.model.pojo.ErrorMessageGateway;
 
 @ControllerAdvice
 public class CustomExceptionHandler {
@@ -27,6 +29,17 @@ public class CustomExceptionHandler {
     public ResponseEntity<ErrorMessage> customExceptionEmail(CustomExceptionEmail ex) {    	
     	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage("Email", ex.getMessage()));
 
+    }
 
+    @ExceptionHandler(CustomExceptionGateway.class)
+    public ResponseEntity<ErrorMessageGateway> customExceptionGateway(CustomExceptionGateway ex) {    	
+    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessageGateway(ex.getMessage()));
+    	
+    }
+    
+    @ExceptionHandler(WebClientResponseException.class)
+    public ResponseEntity<ErrorMessageGateway> customExceptionGateway(WebClientResponseException ex) {    	
+    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessageGateway(ex.getMessage()));
+    	
     }
 }

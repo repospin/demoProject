@@ -27,8 +27,8 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public List<CustomerDTOres> findAllCustomer() {
-		return customerRepository.findAll().stream()
-											.map(x -> CustomerTransformDTO.customerToCustoemrDTOres(x))
+		return customerRepository.findAll().stream().
+											map(customer -> CustomerTransformDTO.customerToCustoemrDTOres(customer))
 											.collect(Collectors.toList());
 	}
 
@@ -36,9 +36,15 @@ public class CustomerServiceImpl implements CustomerService {
 	public void checkIsPresentEmail(String email) {
 		if(customerRepository.checkIsPresentEmail(email) != null) {
 			throw new CustomExceptionEmail("Errore: Email già presente nei nostri sistemi");
+		}	
+	}
+	
+	@Override
+	public CustomerDTOres findCustomerByEmail(String email) {
+		if(customerRepository.checkIsPresentEmail(email) == null) {
+			throw new CustomExceptionEmail("Errore: Email non presente nei nostri sistemi");
 		}
-		
-		
+		return CustomerTransformDTO.customerToCustoemrDTOres(customerRepository.findCustomerByEmail(email).get(0));
 	}
 	
 	
