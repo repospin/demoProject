@@ -42,4 +42,10 @@ public class CustomExceptionHandler {
     	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessageGateway(ex.getMessage()));
     	
     }
+    
+    @ExceptionHandler(CustomExceptionCustomer.class)
+    public ResponseEntity<ErrorMessage> customExceptionId(CustomExceptionCustomer ex) {    	
+    	return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage("Id", ex.getMessage()));
+    	
+    }
 }
