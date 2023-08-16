@@ -12,5 +12,6 @@ public interface CustomerService {
 	public List<CustomerDTOres> findAllCustomer();
 	public CustomerDTOres findCustomerByEmail(String email);
 	public CustomerDTOres updateCustomer(BigDecimal id, CustomerDTOreq customerDTOreq);
+	public String deleteCustomer(String email);
 
 }

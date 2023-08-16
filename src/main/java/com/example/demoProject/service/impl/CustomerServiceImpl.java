@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.demoProject.exception.CustomExceptionCustomer;
 import com.example.demoProject.exception.CustomExceptionEmail;
@@ -42,6 +43,16 @@ public class CustomerServiceImpl implements CustomerService {
 
 	    return CustomerTransformDTO.customerToCustoemrDTOres(customerRepository.save(customer));
 	}
+	
+	@Transactional
+	@Override
+	public String deleteCustomer(String email) {
+		if(customerRepository.checkIsPresentEmail(email) == null) {
+			throw new CustomExceptionEmail("Errore: Email " + email + " non presente nei nostri sistemi");
+		}
+		customerRepository.deleteByEmail(email);
+		return "Utente con Email: " + email + " correttamente eliminato" ;
+	}
 
 	@Override
 	public List<CustomerDTOres> findAllCustomer() {
@@ -57,6 +68,7 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return CustomerTransformDTO.customerToCustoemrDTOres(customerRepository.findCustomerByEmail(email).get());
 	}
+
 	
 	
 

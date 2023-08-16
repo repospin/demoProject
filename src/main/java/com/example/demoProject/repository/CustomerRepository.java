@@ -18,5 +18,8 @@ public interface CustomerRepository extends JpaRepository<Customer, BigDecimal> 
     
     @Query("SELECT c FROM Customer c WHERE c.email = :email")
     public Optional<Customer> findCustomerByEmail(@Param("email") String email);
+    
+    public void deleteByEmail(String email);
+
 
 }

@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,6 +53,11 @@ public class CustomerRestController {
     @PutMapping("/customer/update")
     public ResponseEntity<CustomerDTOres> updateCustomer(@RequestParam BigDecimal id, @RequestBody @Valid CustomerDTOreq customerDTOreq) {
     	return new ResponseEntity<>(customerService.updateCustomer(id, customerDTOreq), HttpStatus.CREATED);
+    }
+    
+    @DeleteMapping("/customer/delete")
+    public ResponseEntity<String> deleteCustomer(@RequestBody @Valid Email email) {
+    	return new ResponseEntity<>(customerService.deleteCustomer(email.getEmail()), HttpStatus.CREATED);
     }
     
     @GetMapping("/user/{id}")
