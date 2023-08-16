@@ -57,7 +57,7 @@ public class CustomerRestController {
     
     @DeleteMapping("/customer/delete")
     public ResponseEntity<String> deleteCustomer(@RequestBody @Valid Email email) {
-    	return new ResponseEntity<>(customerFacade.deleteCustomerFacade(email), HttpStatus.CREATED);
+    	return new ResponseEntity<>(customerFacade.deleteCustomerFacade(email), HttpStatus.OK);
     }
     
     @GetMapping("/user/{id}")
