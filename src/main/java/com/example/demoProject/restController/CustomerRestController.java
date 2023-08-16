@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demoProject.facade.CustomerFacade;
 import com.example.demoProject.model.DTO.CustomerDTOreq;
 import com.example.demoProject.model.DTO.CustomerDTOres;
 import com.example.demoProject.model.pojo.Email;
 import com.example.demoProject.model.pojo.UserEntityGateway;
 import com.example.demoProject.service.gateway.GatewayService;
-import com.example.demoProject.service.interfaces.CustomerService;
 
 import lombok.RequiredArgsConstructor;
 import reactor.core.publisher.Mono;
@@ -32,32 +32,32 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 public class CustomerRestController {
 	
-	private final CustomerService customerService;
+	private final CustomerFacade customerFacade;
 	private final GatewayService gatewayService;
 	
     @GetMapping("/customers")
     public ResponseEntity<List<CustomerDTOres>> getAllCustomers() {
-    	return new ResponseEntity<>(customerService.findAllCustomer(), HttpStatus.OK);
+    	return new ResponseEntity<>(customerFacade.findAllCustomerfFcade(), HttpStatus.OK);
     }
     
     @PostMapping("/customer/")
     public ResponseEntity<CustomerDTOres> getCustomerByEmail(@RequestBody @Valid Email email) {
-    	return new ResponseEntity<>(customerService.findCustomerByEmail(email.getEmail()), HttpStatus.OK);
+    	return new ResponseEntity<>(customerFacade.findCustomerByEmailFacade(email), HttpStatus.OK);
     }
     
     @PostMapping("/customer/save")
     public ResponseEntity<CustomerDTOres> saveCustomer(@RequestBody @Valid CustomerDTOreq customerDTOreq) {
-    	return new ResponseEntity<>(customerService.saveCustomer(customerDTOreq), HttpStatus.CREATED);
+    	return new ResponseEntity<>(customerFacade.saveCustomerFacade(customerDTOreq), HttpStatus.CREATED);
     }
     
     @PutMapping("/customer/update")
     public ResponseEntity<CustomerDTOres> updateCustomer(@RequestParam BigDecimal id, @RequestBody @Valid CustomerDTOreq customerDTOreq) {
-    	return new ResponseEntity<>(customerService.updateCustomer(id, customerDTOreq), HttpStatus.CREATED);
+    	return new ResponseEntity<>(customerFacade.updateCustomerFacade(id, customerDTOreq), HttpStatus.CREATED);
     }
     
     @DeleteMapping("/customer/delete")
     public ResponseEntity<String> deleteCustomer(@RequestBody @Valid Email email) {
-    	return new ResponseEntity<>(customerService.deleteCustomer(email.getEmail()), HttpStatus.CREATED);
+    	return new ResponseEntity<>(customerFacade.deleteCustomerFacade(email), HttpStatus.CREATED);
     }
     
     @GetMapping("/user/{id}")
