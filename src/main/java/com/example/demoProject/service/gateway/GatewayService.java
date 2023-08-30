@@ -7,4 +7,5 @@ import reactor.core.publisher.Mono;
 public interface GatewayService {
 
 	public Mono<UserEntityGateway> getUserData(String idUtente);
+	public Mono<String> getUserDataPost(String idUtente);
 }

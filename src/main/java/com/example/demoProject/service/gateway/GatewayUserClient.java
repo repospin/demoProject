@@ -25,4 +25,16 @@ public class GatewayUserClient implements GatewayService {
     		throw new CustomExceptionGateway("Errore nella chiamata gateway: https://dummyjson.com/users/{id}");
     	}
     }
+
+	
+	public Mono<String> getUserDataPost(String idUtente) {
+    	try {
+            return webClient.get()
+	                .uri("/users/{id}/posts", idUtente)
+	                .retrieve()
+	                .bodyToMono(String.class);
+    	}catch(Exception e){
+    		throw new CustomExceptionGateway("Errore nella chiamata gateway: https://dummyjson.com/users/{id}/posts");
+    	}
+    }
 }
