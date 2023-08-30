@@ -2,6 +2,7 @@ package com.example.demoProject.service.impl;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -63,10 +64,11 @@ public class CustomerServiceImpl implements CustomerService {
 	
 	@Override
 	public CustomerDTOres findCustomerByEmail(String email) {
-		if(customerRepository.checkIsPresentEmail(email) == null) {
-			throw new CustomExceptionEmail("Errore: Email " + email + " non presente nei nostri sistemi");
-		}
-		return CustomerTransformDTO.customerToCustoemrDTOres(customerRepository.findCustomerByEmail(email).get());
+
+		Optional<Customer> customer = customerRepository.findFirstByEmailIgnoreCase(email);
+		if(!customer.isPresent()) throw new CustomExceptionEmail("Errore: Email " + email + " non presente nei nostri sistemi");
+
+		return CustomerTransformDTO.customerToCustoemrDTOres(customer.get());
 	}
 
 	

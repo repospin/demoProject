@@ -16,8 +16,7 @@ public interface CustomerRepository extends JpaRepository<Customer, BigDecimal> 
     @Query("SELECT c.email FROM Customer c WHERE c.email = ?1")
 	public String checkIsPresentEmail(String email);
     
-    @Query("SELECT c FROM Customer c WHERE c.email = :email")
-    public Optional<Customer> findCustomerByEmail(@Param("email") String email);
+    public Optional<Customer> findFirstByEmailIgnoreCase( String email);
     
     public void deleteByEmail(String email);
 
